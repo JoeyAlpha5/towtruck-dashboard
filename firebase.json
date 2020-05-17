@@ -1,0 +1,34 @@
+{
+  "hosting": [
+    {
+      "target": "TowTruck-Dashboard",
+      "public": "dist/TowTruck-Dashboard",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "TowTruck-Dashboard",
+      "public": "dist/TowTruck-Dashboard",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

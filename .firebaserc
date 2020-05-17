@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "wilsons-aa459": {
+      "hosting": {
+        "TowTruck-Dashboard": [
+          "wilsons-aa459"
+        ]
+      }
+    }
+  }
+}
