@@ -1,78 +1,60 @@
-  <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-2" id="leftPane">
-          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <br><br><br><br>
-            <div class="sidebar-sticky">
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link active" style="color: #f59000 !important">
-                    <i class="fas fa-car-alt"></i>
-                    Drivers
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/users">
-                    <i class="fas fa-users"></i>
-                    Users
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <i class="fab fa-stripe"></i>
-                    Payments
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <i class="fas fa-chart-pie"></i>
-                    Stats
-                  </a>
-                </li>
-                
-              </ul>
-  
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <span>Driver reports</span>
-                <a class="d-flex align-items-center text-muted" href="#">
-                  <span data-feather="plus-circle"></span>
-                </a>
-              </h6>
-              <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <i class="far fa-calendar-alt"></i>
-                    Monthly repors
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <i class="fas fa-table"></i>
-                    Weekly repors
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <i class="far fa-clock"></i>
-                    Daily repors
-                  </a>
-                </li>
-                <li class="nav-item" id="logout" (click)="logout()">
-                  <a class="nav-link" href="#" style="color:#f44336 !important;">
-                    <i class="fas fa-user-lock"></i>
-                    Logout
-                  </a>
-                </li>
-              </ul>
+<app-left-pane></app-left-pane>
+<div class="container driverContainer">
+  <div class="row">
+      <div class="col-sm-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <div class="form-group">
+              <form (submit)="addNew()">
+                <label for="exampleInputId">ID no.</label>
+                <input name="id_no" [(ngModel)]="form.id_no" type="text" maxlength="13" class="form-control" id="exampleInputId" aria-describedby="emailHelp">
+                <label for="exampleInputEmail1">Email address</label>
+                <input name="email" [(ngModel)]="form.email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <label for="exampleIform.nputName">Fullname</label>
+                <input name="fullname" [(ngModel)]="form.fullname" type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp">
+                <label for="exampleInputMobile">Mobile</label>
+                <input name="mobile" [(ngModel)]="form.mobile" type="number" class="form-control" id="exampleInputMobile" aria-describedby="emailHelp">
+                <label for="exampleInputPlate">Number plate</label>
+                <input name="number_plate" [(ngModel)]="form.number_plate" type="text" class="form-control" id="exampleInputPlate" aria-describedby="emailHelp">
+                <label for="exampleFormControlSelect1">Vehicle type</label>
+                <select name="vehicle" [(ngModel)]="form.vehicle" class="form-control" id="exampleFormControlSelect1">
+                  <option>small</option>
+                  <option>medium</option>
+                  <option>large</option>
+                </select>
+                <label for="exampleFormControlFile1">Image</label>
+                <input name="file" [(ngModel)]="form.file" type="file" class="form-control-file" id="fileInput"><br/>
+                <button type="submit"  class="btn btn-warning">Add new driver</button>
+              </form>
             </div>
-          </nav>
-        </div>
-
-
-
-        <div class="col-sm-8">
-          <p>col-sm-8</p>
-  
+          </div>
         </div>
       </div>
-  </div>
+      <div class="col-sm-8 existingDrivers">
+        <h5>Existing drivers</h5>
+        <div id="drivers">
+          <table class="table">
+            <thead  class="thead-dark">
+              <tr>
+                <th scope="col">Mobile</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Email</th>
+                <th scope="col">Truck type</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let driver of drivers">
+                <th scope="row">1</th>
+                <td>{{driver.mobile}}</td>
+                <td>{{driver.fullname}}</td>
+                <td>{{driver.type}}</td>
+                <td><a class="driverdetails" href="#">details</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>
