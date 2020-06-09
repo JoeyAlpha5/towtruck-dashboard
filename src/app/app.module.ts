@@ -14,6 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import { LeftPaneComponent } from './left-pane/left-pane.component';
+import { DriverMessageComponent } from './driver-message/driver-message.component';
+import { UploadMessageComponent } from './upload-message/upload-message.component';
+import { ViewDriverComponent } from './view-driver/view-driver.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +25,9 @@ import { LeftPaneComponent } from './left-pane/left-pane.component';
     DriversComponent,
     UsersComponent,
     LeftPaneComponent,
+    DriverMessageComponent,
+    UploadMessageComponent,
+    ViewDriverComponent,
   ],
   imports: [
     BrowserModule,

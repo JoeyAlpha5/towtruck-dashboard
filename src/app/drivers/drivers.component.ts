@@ -4,10 +4,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFireDatabase } from '@angular/fire/database';
 import {MatDialog} from '@angular/material/dialog';
+import { DriverMessageComponent } from '../driver-message/driver-message.component';
+import { UploadMessageComponent } from '../upload-message/upload-message.component';
+import { ViewDriverComponent } from '../view-driver/view-driver.component';
 @Component({
   selector: 'app-drivers',
   templateUrl: './drivers.component.html',
-  styleUrls: ['./drivers.component.sass']
+  styleUrls: ['./drivers.component.scss']
 })
 export class DriversComponent implements OnInit {
   drivers = [];
@@ -48,9 +51,9 @@ export class DriversComponent implements OnInit {
 
   addNew(){
     if(this.form.fullname == "" || this.form.email == "" || this.form.file == null || this.form.id_no == "" || this.form.mobile == "" || this.form.number_plate == "" || this.form.vehicle == ""){
-      const dialogRef = this.dialog.open(DialogMessageDialog);
+      const dialogRef = this.dialog.open(DriverMessageComponent);
     }else{
-      const dialogRef = this.dialog.open(UploadMessageDialog);
+      const dialogRef = this.dialog.open(UploadMessageComponent);
       console.group( "Form View-Model" );
       console.log( "Name:", this.form.id_no );
       console.log( "Email:", this.form.email );
@@ -63,39 +66,54 @@ export class DriversComponent implements OnInit {
 
       var fileupload = <HTMLInputElement> document.getElementById("fileInput");
       var file_id = '/'+Math.random()+fileupload.files.item(0).name;
-      var new_upload = this.storagedb.upload(file_id,fileupload.files.item(0));
-      new_upload.percentageChanges().subscribe(p=>{
-        console.log(p);
-        if(p == 100){
-          //get file id
-          var uploaded_file = this.storagedb.ref(file_id).getDownloadURL().subscribe(url=>{
-            this.firedb.object("Users/"+0+ JSON.stringify(this.form.mobile)).set({"mobile":0 + JSON.stringify(this.form.mobile),"email":this.form.email,"fullname":this.form.fullname,"driver":true,"location":"","type":this.form.vehicle,"plate":this.form.number_plate,"driver_id":this.form.id_no,"image":url,"picking_up":'none'}).then(()=>{
-               location.reload();
+      //create user account
+      this.auth.createUserWithEmailAndPassword(this.form.email,this.form.mobile.toString()).then(re=>{
+        console.log(re);
+        var new_upload = this.storagedb.upload(file_id,fileupload.files.item(0));
+        new_upload.percentageChanges().subscribe(p=>{
+          console.log(p);
+          if(p == 100){
+            //get file url
+            var uploaded_file = this.storagedb.ref(file_id).getDownloadURL().subscribe(url=>{
+              this.drivers = [];
+              this.firedb.object("Users/"+0+ JSON.stringify(this.form.mobile)).set({"mobile":0 + JSON.stringify(this.form.mobile),"email":this.form.email,"fullname":this.form.fullname,"driver":true,"location":"","type":this.form.vehicle,"plate":this.form.number_plate,"driver_id":this.form.id_no,"image":url,"picking_up":'none'}).then(()=>{
+                this.ngOnInit();
+                this.dialog.closeAll();
+                this.emptyForm();
+              });
             });
-          });
-        }
+          }
+        },err=>{
+          alert(err);
+        })
+      }).catch(err=>{
+        alert(err);
+        this.dialog.closeAll();
       })
-      
     }
+  }
 
+  emptyForm(){
+    this.form = {
+      id_no: "",
+      email: "",
+      fullname: "",
+      mobile: "",
+      number_plate: "",
+      vehicle: "",
+      file:null,
+    };
+  }
 
-
-
+  getDriver(mobile){
+    var viewDriver = this.dialog.open(ViewDriverComponent,{data:{mobile:mobile},width:'800px'});
+    viewDriver.afterClosed().subscribe(re=>{
+      console.log(re);
+      if(re.data == "updated"){
+        this.drivers = [];
+        this.ngOnInit();
+      }
+    })
   }
 
 }
-
-@Component({
-  selector: 'app-drivers',
-  templateUrl: './driver-message.html',
-  styleUrls: ['./drivers.component.sass']
-})
-export class DialogMessageDialog {}
-
-@Component({
-  selector: 'app-drivers',
-  templateUrl: './uploadmessage.html',
-  styleUrls: ['./drivers.component.sass']
-})
-export class UploadMessageDialog {}
-

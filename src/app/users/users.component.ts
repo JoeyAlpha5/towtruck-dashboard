@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.sass']
+  styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
 

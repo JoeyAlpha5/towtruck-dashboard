@@ -46,11 +46,11 @@
             </thead>
             <tbody>
               <tr *ngFor="let driver of drivers">
-                <th scope="row">1</th>
                 <td>{{driver.mobile}}</td>
                 <td>{{driver.fullname}}</td>
+                <td>{{driver.email}}</td>
                 <td>{{driver.type}}</td>
-                <td><a class="driverdetails" href="#">details</a></td>
+                <td (click)="getDriver(driver.mobile)"><span class="driverdetails">details</span></td>
               </tr>
             </tbody>
           </table>

@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Component({
   selector: 'app-left-pane',
   templateUrl: './left-pane.component.html',
-  styleUrls: ['./left-pane.component.sass']
+  styleUrls: ['./left-pane.component.scss']
 })
 export class LeftPaneComponent implements OnInit {
 

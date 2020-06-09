@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>View driver</h2>
+<mat-dialog-content class="mat-typography">
+    <img src="{{ image }}" height="200" alt="driver image">
+
+    <form (submit)="Update()">
+        <label for="exampleInputId">ID no.</label>
+        <input name="id_no" disabled [(ngModel)]="form.driver_id" type="text" maxlength="13" class="form-control" id="exampleInputId" aria-describedby="emailHelp">
+        <label for="exampleInputEmail1">Email address</label>
+        <input name="email" disabled [(ngModel)]="form.email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="exampleInputMobile">Mobile</label>
+        <input name="mobile" disabled [(ngModel)]="form.mobile" type="text" class="form-control" id="exampleInputMobile" aria-describedby="emailHelp">
+        <label for="exampleIform.nputName">Fullname</label>
+        <input name="fullname" [(ngModel)]="form.fullname" type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp">
+        <label for="exampleInputPlate">Number plate</label>
+        <input name="number_plate" [(ngModel)]="form.plate" type="text" class="form-control" id="exampleInputPlate" aria-describedby="emailHelp">
+        <label for="exampleFormControlSelect1">Vehicle type</label>
+        <select name="vehicle" [(ngModel)]="form.type"  class="form-control" id="exampleFormControlSelect1">
+          <option>small</option>
+          <option>medium</option>
+          <option>large</option>
+        </select>
+        <label for="exampleFormControlFile1">Image</label>
+        <input name="imageUrl" [(ngModel)]="form.image"  type="text" class="form-control"><br/>
+        <button type="submit"  class="btn btn-warning">Update Details</button>
+    </form>
+</mat-dialog-content>
+
